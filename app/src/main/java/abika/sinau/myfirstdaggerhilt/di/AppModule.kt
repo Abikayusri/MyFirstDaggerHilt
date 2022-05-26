@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -24,6 +25,7 @@ object AppModule {
 
     @Provides
     @Singleton
+//    fun provideApiService(@Named("MyModuleService") okHttpClient: OkHttpClient): MyApi { // TODO: and add anotation too if you want call that specific function
     fun provideApiService(okHttpClient: OkHttpClient): MyApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -32,6 +34,7 @@ object AppModule {
             .create(MyApi::class.java)
     }
 
+    @Named("MyModuleService") // TODO: you can add this syntax if you want make same function with different name
     @Provides
     @Singleton
     fun provideOkHttpClient(
